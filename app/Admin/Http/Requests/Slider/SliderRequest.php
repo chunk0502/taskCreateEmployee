@@ -3,7 +3,7 @@
 namespace App\Admin\Http\Requests\Slider;
 
 use App\Admin\Http\Requests\BaseRequest;
-use App\Enums\DefaultStatus;
+use App\Enums\Post\PostEnum;
 use Illuminate\Validation\Rules\Enum;
 
 class SliderRequest extends BaseRequest
@@ -16,7 +16,7 @@ class SliderRequest extends BaseRequest
     protected function methodPost()
     {
         return [
-            'status' => ['required', new Enum(DefaultStatus::class)],
+            'status' => ['required', new Enum(PostEnum::class)],
             'name' => ['required', 'string'],
             'plain_key' => ['required', 'string', 'unique:App\Models\Slider,plain_key'],
             'desc' => ['nullable'],
@@ -27,7 +27,7 @@ class SliderRequest extends BaseRequest
     {
         return [
             'id' => ['required', 'exists:App\Models\Slider,id'],
-            'status' => ['required', new Enum(DefaultStatus::class)],
+            'status' => ['required', new Enum(PostEnum::class)],
             'name' => ['required', 'string'],
             'plain_key' => ['required', 'string', 'unique:App\Models\Slider,plain_key,'.$this->id],
             'desc' => ['nullable'],

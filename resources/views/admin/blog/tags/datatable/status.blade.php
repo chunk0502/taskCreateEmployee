@@ -1,4 +1,4 @@
 <span @class([
     'badge',
-    \App\Enums\DefaultStatus::tryFrom($status)->badge()
-])>{{ \App\Enums\DefaultStatus::getDescription($status) }}</span>
+    \App\Enums\Post\PostEnum::tryFrom($status)->badge()
+])>{{ \App\Enums\Post\PostEnum::getDescription($status) }}</span>

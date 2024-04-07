@@ -3,8 +3,8 @@
 namespace App\Admin\Http\Requests\Blog\Category;
 
 use App\Admin\Http\Requests\BaseRequest;
-use App\Enums\DefaultStatus;
 use App\Admin\Rules\Category\CategoryParent;
+use App\Enums\Post\PostEnum;
 use Illuminate\Validation\Rules\Enum;
 
 class CategoryRequest extends BaseRequest
@@ -20,7 +20,7 @@ class CategoryRequest extends BaseRequest
             'name' => ['required', 'string'],
             'parent_id' => ['nullable', 'exists:App\Models\Category,id'],
             'position' => ['required', 'integer'],
-            'status' => ['required', new Enum(DefaultStatus::class)]
+            'status' => ['required', new Enum(PostEnum::class)]
         ];
     }
 
@@ -32,7 +32,7 @@ class CategoryRequest extends BaseRequest
             'slug' => ['required', 'string', 'unique:App\Models\Category,slug,'.$this->id],
             'parent_id' => ['nullable', 'exists:App\Models\Category,id', new CategoryParent($this->id)],
             'position' => ['nullable', 'integer'],
-            'status' => ['required', new Enum(DefaultStatus::class)]
+            'status' => ['required', new Enum(PostEnum::class)]
         ];
     }
 }

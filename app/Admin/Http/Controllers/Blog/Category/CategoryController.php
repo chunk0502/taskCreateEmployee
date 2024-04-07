@@ -2,17 +2,17 @@
 
 namespace App\Admin\Http\Controllers\Blog\Category;
 
+use App\Admin\DataTables\Blog\Category\CategoryDataTable;
 use App\Admin\Http\Controllers\Controller;
 use App\Admin\Http\Requests\Blog\Category\CategoryRequest;
 use App\Admin\Repositories\Category\CategoryRepositoryInterface;
 use App\Admin\Services\Blog\Category\CategoryServiceInterface;
-use App\Admin\DataTables\Blog\Category\CategoryDataTable;
-use App\Enums\DefaultStatus;
+use App\Enums\Post\PostEnum;
 
 class CategoryController extends Controller
 {
     public function __construct(
-        CategoryRepositoryInterface $repository, 
+        CategoryRepositoryInterface $repository,
         CategoryServiceInterface $service
     ){
 
@@ -23,7 +23,7 @@ class CategoryController extends Controller
     }
 
     public function getView(){
-        
+
         return [
             'index' => 'admin.blog.categories.index',
             'create' => 'admin.blog.categories.create',
@@ -53,7 +53,7 @@ class CategoryController extends Controller
 
         return view($this->view['create'], [
             'categories' => $categories,
-            'status' => DefaultStatus::asSelectArray(),
+            'status' => PostEnum::asSelectArray(),
             'breadcrums' => $this->crums->add(__('blog'))->add(__('category'), route($this->route['index']))->add(__('add'))
         ]);
     }
@@ -63,8 +63,8 @@ class CategoryController extends Controller
         $response = $this->service->store($request);
 
         if($response){
-            return $request->input('submitter') == 'save' 
-                    ? to_route($this->route['edit'], $response->id)->with('success', __('notifySuccess')) 
+            return $request->input('submitter') == 'save'
+                    ? to_route($this->route['edit'], $response->id)->with('success', __('notifySuccess'))
                     : to_route($this->route['index'])->with('success', __('notifySuccess'));
         }
 
@@ -74,17 +74,17 @@ class CategoryController extends Controller
     public function edit($id){
 
         $categories = $this->repository->getFlatTreeNotInNode([$id]);
-        
+
         $category = $this->repository->findOrFail($id);
 
         return view(
-            $this->view['edit'], 
+            $this->view['edit'],
             [
-                'category' => $category, 
-                'categories' => $categories, 
-                'status' => DefaultStatus::asSelectArray(),
+                'category' => $category,
+                'categories' => $categories,
+                'status' => PostEnum::asSelectArray(),
                 'breadcrums' => $this->crums->add(__('blog'))->add(__('category'), route($this->route['index']))->add(__('edit'))
-            ], 
+            ],
         );
     }
 
@@ -93,7 +93,7 @@ class CategoryController extends Controller
         $response = $this->service->update($request);
 
         if($response){
-            return $request->input('submitter') == 'save' 
+            return $request->input('submitter') == 'save'
                     ? back()->with('success', __('notifySuccess'))
                     : to_route($this->route['index'])->with('success', __('notifySuccess'));
         }
@@ -104,7 +104,7 @@ class CategoryController extends Controller
     public function delete($id){
 
         $this->service->delete($id);
-        
+
         return to_route($this->route['index'])->with('success', __('notifySuccess'));
     }
 }

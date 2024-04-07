@@ -5,7 +5,7 @@ namespace App\Admin\DataTables\Blog\Post;
 use App\Admin\DataTables\BaseDataTable;
 use App\Admin\Repositories\Category\CategoryRepositoryInterface;
 use App\Admin\Repositories\Post\PostRepositoryInterface;
-use App\Enums\DefaultStatus;
+use App\Enums\Post\PostEnum;
 
 class PostDataTable extends BaseDataTable
 {
@@ -21,7 +21,7 @@ class PostDataTable extends BaseDataTable
         $this->repository = $repository;
 
         $this->repoCat = $repoCat;
-        
+
         parent::__construct();
     }
 
@@ -41,11 +41,11 @@ class PostDataTable extends BaseDataTable
         $this->columnAllSearch = [2, 3, 4, 5];
 
         $this->columnSearchDate = [5];
-        
+
         $this->columnSearchSelect = [
             [
                 'column' => 3,
-                'data' => DefaultStatus::asSelectArray()
+                'data' => PostEnum::asSelectArray()
             ],
         ];
 
@@ -58,7 +58,7 @@ class PostDataTable extends BaseDataTable
             ]
         ];
     }
-    
+
     /**
      * Get query source of dataTable.
      *

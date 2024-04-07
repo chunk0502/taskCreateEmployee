@@ -3,7 +3,7 @@
 namespace App\Admin\Http\Requests\Blog\Post;
 
 use App\Admin\Http\Requests\BaseRequest;
-use App\Enums\DefaultStatus;
+use App\Enums\Post\PostEnum;
 use Illuminate\Validation\Rules\Enum;
 
 class PostRequest extends BaseRequest
@@ -21,8 +21,8 @@ class PostRequest extends BaseRequest
             'tag_id' => ['nullable', 'array'],
             'tag_id.*' => ['nullable', 'exists:App\Models\Tag,id'],
             'title' => ['required', 'string'],
-            'feature_image' => ['required'],
-            'status' => ['required', new Enum(DefaultStatus::class)],
+            'feature_image' => ['nullable'],
+            'status' => ['required', new Enum(PostEnum::class)],
             'excerpt' => ['nullable'],
             'content' => ['nullable']
         ];
@@ -38,8 +38,8 @@ class PostRequest extends BaseRequest
             'tag_id.*' => ['nullable', 'exists:App\Models\Tag,id'],
             'title' => ['required', 'string'],
             'slug' => ['required', 'string', 'unique:App\Models\Post,slug,' . $this->id],
-            'feature_image' => ['required'],
-            'status' => ['required', new Enum(DefaultStatus::class)],
+            'feature_image' => ['nullable'],
+            'status' => ['required', new Enum(PostEnum::class)],
             'excerpt' => ['nullable'],
             'content' => ['nullable']
         ];

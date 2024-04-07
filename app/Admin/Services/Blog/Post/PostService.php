@@ -2,9 +2,8 @@
 
 namespace App\Admin\Services\Blog\Post;
 
-use App\Admin\Services\Blog\Post\PostServiceInterface;
-use  App\Admin\Repositories\Post\PostRepositoryInterface;
-use App\Enums\DefaultStatus;
+use App\Admin\Repositories\Post\PostRepositoryInterface;
+use App\Enums\Post\PostEnum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,20 +15,20 @@ class PostService implements PostServiceInterface
      * @var array
      */
     protected $data;
-    
+
     protected $repository;
 
     public function __construct(PostRepositoryInterface $repository){
         $this->repository = $repository;
     }
-    
+
     public function store(Request $request){
 
         $this->data = $request->validated();
         $this->data['posted_at'] = now();
         $categoriesId = $this->data['categories_id'];
         $tagId = [];
-        
+
         if(isset($this->data['tag_id'])){
 
             $tagId = $this->data['tag_id'];
@@ -57,12 +56,12 @@ class PostService implements PostServiceInterface
     }
 
     public function update(Request $request){
-        
+
         $this->data = $request->validated();
 
         $categoriesId = $this->data['categories_id'];
         $tagId = [];
-        
+
         if(isset($this->data['tag_id'])){
 
             $tagId = $this->data['tag_id'];
@@ -101,7 +100,7 @@ class PostService implements PostServiceInterface
         }
 
         $data = $request->all();
-        
+
         if($data['action'] == 'delete'){
 
             foreach($data['id'] as $id){
@@ -115,9 +114,9 @@ class PostService implements PostServiceInterface
             $this->repository->updateMultipleBy([
                 ['id', 'in', $data['id']]
             ], [
-                'status' => $data['action'] == 'publishedStatus' ? DefaultStatus::Published : DefaultStatus::Draft
+                'status' => $data['action'] == 'publishedStatus' ? PostEnum::Published : PostEnum::Draft
             ]);
-            
+
             return back()->with('success', __('notifySuccess'));
         }
 

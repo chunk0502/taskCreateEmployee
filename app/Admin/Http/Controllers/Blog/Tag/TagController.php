@@ -2,17 +2,17 @@
 
 namespace App\Admin\Http\Controllers\Blog\Tag;
 
+use App\Admin\DataTables\Blog\Tag\TagDataTable;
 use App\Admin\Http\Controllers\Controller;
 use App\Admin\Http\Requests\Blog\Tag\TagRequest;
 use App\Admin\Repositories\Tag\TagRepositoryInterface;
 use App\Admin\Services\Blog\Tag\TagServiceInterface;
-use App\Admin\DataTables\Blog\Tag\TagDataTable;
-use App\Enums\DefaultStatus;
+use App\Enums\Post\PostEnum;
 
 class TagController extends Controller
 {
     public function __construct(
-        TagRepositoryInterface $repository, 
+        TagRepositoryInterface $repository,
         TagServiceInterface $service
     ){
 
@@ -50,7 +50,7 @@ class TagController extends Controller
     public function create(){
 
         return view($this->view['create'], [
-            'status' => DefaultStatus::asSelectArray(),
+            'status' => PostEnum::asSelectArray(),
             'breadcrums' => $this->crums->add(__('blog'))->add(__('tag'), route($this->route['index']))->add(__('add'))
         ]);
     }
@@ -60,8 +60,8 @@ class TagController extends Controller
         $response = $this->service->store($request);
 
         if($response){
-            return $request->input('submitter') == 'save' 
-                    ? to_route($this->route['edit'], $response->id)->with('success', __('notifySuccess')) 
+            return $request->input('submitter') == 'save'
+                    ? to_route($this->route['edit'], $response->id)->with('success', __('notifySuccess'))
                     : to_route($this->route['index'])->with('success', __('notifySuccess'));
         }
 
@@ -73,12 +73,12 @@ class TagController extends Controller
         $tag = $this->repository->findOrFail($id);
 
         return view(
-            $this->view['edit'], 
+            $this->view['edit'],
             [
-                'tag' => $tag, 
-                'status' => DefaultStatus::asSelectArray(),
+                'tag' => $tag,
+                'status' => PostEnum::asSelectArray(),
                 'breadcrums' => $this->crums->add(__('blog'))->add(__('tag'), route($this->route['index']))->add(__('edit'))
-            ], 
+            ],
         );
     }
 
@@ -87,7 +87,7 @@ class TagController extends Controller
         $response = $this->service->update($request);
 
         if($response){
-            return $request->input('submitter') == 'save' 
+            return $request->input('submitter') == 'save'
                     ? back()->with('success', __('notifySuccess'))
                     : to_route($this->route['index'])->with('success', __('notifySuccess'));
         }
@@ -98,7 +98,7 @@ class TagController extends Controller
     public function delete($id){
 
         $this->service->delete($id);
-        
+
         return to_route($this->route['index'])->with('success', __('notifySuccess'));
     }
 }

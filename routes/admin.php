@@ -98,13 +98,46 @@ Route::group(['middleware' => 'admin.auth.admin:admin'], function(){
             Route::controller(App\Admin\Http\Controllers\Blog\Tag\TagController::class)->group(function(){
                 Route::get('/add', 'create')->name('create');
                 Route::get('/', 'index')->name('index');
-                Route::get('/edit/{id}', 'edit')->name('edit');
                 Route::put('/edit', 'update')->name('update');
                 Route::post('/add', 'store')->name('store');
                 Route::delete('/delete/{id}', 'delete')->name('delete');
             });
         });
     });
+    Route::prefix('/blog2')
+        ->as('blog2.')
+        ->group(function() {
+            //Post category
+            Route::prefix('/categories')->as('category.')->group(function(){
+                Route::controller(App\Admin\Http\Controllers\Blog2\Category\CategoryController::class)->group(function(){
+                    Route::get('/add', 'create')->name('create');
+                    Route::get('/', 'index')->name('index');
+                    Route::get('/edit/{id}', 'edit')->name('edit');
+                    Route::put('/edit', 'update')->name('update');
+                    Route::post('/add', 'store')->name('store');
+                    Route::delete('/delete/{id}', 'delete')->name('delete');
+                });
+            });
+            //Post
+            Route::prefix('/posts')->as('post.')->group(function(){
+                Route::controller(App\Admin\Http\Controllers\Blog2\Post\PostController::class)->group(function(){
+                    Route::get('/', 'index')->name('index');
+                    Route::get('/add', 'create')->name('create');
+                    Route::get('/edit/{id}', 'edit')->name('edit');
+                    Route::put('/edit', 'update')->name('update');
+                    Route::post('/add', 'store')->name('store');
+                    Route::delete('/delete/{id}', 'delete')->name('delete');
+                    Route::post('/action-multile-record', 'actionMultipleRecode')->name('action_multiple_record');
+                });
+            });
+            Route::prefix('/search')->as('search.')->group(function () {
+                Route::prefix('/select')->as('select.')->group(function () {
+                    Route::get('/tag',
+                        [App\Admin\Http\Controllers\Blog\Tag\TagSearchSelectController::class, 'selectSearch'])->name('tag');
+                });
+            });
+        });
+
 
 
     //user

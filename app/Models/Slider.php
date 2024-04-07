@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\DefaultStatus;
+use App\Enums\Post\PostEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +15,7 @@ class Slider extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'status' => DefaultStatus::class
+        'status' => PostEnum::class
     ];
 
     public function items(){
@@ -23,6 +23,6 @@ class Slider extends Model
     }
 
     public function scopePublished($query){
-        $query->where('status', DefaultStatus::Published);
+        $query->where('status', PostEnum::Published);
     }
 }

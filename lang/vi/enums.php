@@ -1,9 +1,9 @@
 <?php
 
 use App\Enums\Admin\AdminRoles;
-use App\Enums\DefaultStatus;
-use App\Enums\Gender;
 use App\Enums\Employee\RolesEnum;
+use App\Enums\Gender;
+use App\Enums\Post\PostEnum;
 
 return [
     AdminRoles::class => [
@@ -20,9 +20,9 @@ return [
         RolesEnum::Dev->value => 'Dev',
         RolesEnum::Other->value => 'Khác',
     ],
-    DefaultStatus::class => [
-        DefaultStatus::Published->value => 'Đã xuất bản',
-        DefaultStatus::Draft->value => 'Bản nháp'
+    PostEnum::class => [
+        PostEnum::Published->value => 'Đã xuất bản',
+        PostEnum::Draft->value => 'Bản nháp'
     ]
 ];
 

@@ -4,7 +4,7 @@ namespace App\Admin\DataTables\Slider;
 
 use App\Admin\DataTables\BaseDataTable;
 use App\Admin\Repositories\Slider\SliderRepositoryInterface;
-use App\Enums\DefaultStatus;
+use App\Enums\Post\PostEnum;
 
 class SliderDataTable extends BaseDataTable
 {
@@ -15,7 +15,7 @@ class SliderDataTable extends BaseDataTable
         SliderRepositoryInterface $repository
     ){
         $this->repository = $repository;
-        
+
         parent::__construct();
 
     }
@@ -38,11 +38,11 @@ class SliderDataTable extends BaseDataTable
         $this->columnSearchSelect = [
             [
                 'column' => 2,
-                'data' => DefaultStatus::asSelectArray()
+                'data' => PostEnum::asSelectArray()
             ]
         ];
     }
-    
+
     /**
      * Get query source of dataTable.
      *

@@ -76,6 +76,40 @@ return [
         ]
     ],
     [
+        'title' => 'Blog2',
+        'routeName' => null,
+        'icon' => '<i class="ti ti-article"></i>',
+        'roles' => [],
+        'sub' => [
+            [
+                'title' => 'addPost',
+                'routeName' => 'admin.blog2.post.create',
+                'icon' => '<i class="ti ti-plus"></i>',
+                'roles' => [
+                    App\Enums\Admin\AdminRoles::SuperAdmin,
+                    App\Enums\Admin\AdminRoles::Admin
+                ],
+            ],
+            [
+                'title' => 'post',
+                'routeName' => 'admin.blog2.post.index',
+                'icon' => '<i class="ti ti-list"></i>',
+                'roles' => [],
+            ],
+            [
+                'title' => 'category',
+                'routeName' => 'admin.blog2.category.index',
+                'icon' => '<i class="ti ti-list"></i>',
+                'roles' => [
+                    App\Enums\Admin\AdminRoles::SuperAdmin,
+                    App\Enums\Admin\AdminRoles::Admin
+                ],
+            ],
+        ]
+    ],
+
+
+    [
         'title' => 'slider',
         'routeName' => null,
         'icon' => '<i class="ti ti-slideshow"></i>',

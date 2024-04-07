@@ -3,7 +3,7 @@
 namespace App\Admin\Http\Requests\Blog\Tag;
 
 use App\Admin\Http\Requests\BaseRequest;
-use App\Enums\DefaultStatus;
+use App\Enums\Post\PostEnum;
 use Illuminate\Validation\Rules\Enum;
 
 class TagRequest extends BaseRequest
@@ -17,7 +17,7 @@ class TagRequest extends BaseRequest
     {
         return [
             'name' => ['required', 'string'],
-            'status' => ['required', new Enum(DefaultStatus::class)],
+            'status' => ['required', new Enum(PostEnum::class)],
             'description' => ['nullable'],
         ];
     }
@@ -28,7 +28,7 @@ class TagRequest extends BaseRequest
             'id' => ['required', 'exists:App\Models\Tag,id'],
             'name' => ['required', 'string'],
             'slug' => ['required', 'string', 'unique:App\Models\Tag,slug,'.$this->id],
-            'status' => ['required', new Enum(DefaultStatus::class)],
+            'status' => ['required', new Enum(PostEnum::class)],
             'description' => ['nullable'],
         ];
     }

@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\Post\PostEnum;
+use App\Supports\Eloquent\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Supports\Eloquent\Sluggable;
-use App\Enums\DefaultStatus;
 
 class Tag extends Model
 {
@@ -14,16 +14,16 @@ class Tag extends Model
     protected $table = 'tags';
 
     protected $guarded = [];
-    
+
     protected $casts = [
-        'status' => DefaultStatus::class,
+        'status' => PostEnum::class,
     ];
 
     public function isPublished(){
-        return $this->status == DefaultStatus::Published;
+        return $this->status == PostEnum::Published;
     }
 
     public function scopePublished($query){
-        return $query->where('status', DefaultStatus::Published);
+        return $query->where('status', PostEnum::Published);
     }
 }

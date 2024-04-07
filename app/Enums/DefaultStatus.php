@@ -2,6 +2,7 @@
 
 namespace App\Enums;
 
+use App\Enums\Post\PostEnum;
 use App\Supports\Enum;
 
 enum DefaultStatus: int
@@ -13,8 +14,8 @@ enum DefaultStatus: int
 
     public function badge(){
         return match($this) {
-            DefaultStatus::Published => 'bg-green',
-            DefaultStatus::Draft => '',
+            PostEnum::Published => 'bg-green',
+            PostEnum::Draft => '',
         };
     }
 }

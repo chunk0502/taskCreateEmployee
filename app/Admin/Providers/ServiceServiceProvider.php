@@ -12,6 +12,8 @@ class ServiceServiceProvider extends ServiceProvider
         'App\Admin\Services\Employee\EmployeeServiceInterface' => 'App\Admin\Services\Employee\EmployeeService',
         'App\Admin\Services\Blog\Category\CategoryServiceInterface' => 'App\Admin\Services\Blog\Category\CategoryService',
         'App\Admin\Services\Blog\Post\PostServiceInterface' => 'App\Admin\Services\Blog\Post\PostService',
+        'App\Admin\Services\Blog2\Category\CategoryServiceInterface' => 'App\Admin\Services\Blog2\Category\CategoryService',
+        'App\Admin\Services\Blog2\Post\PostServiceInterface' => 'App\Admin\Services\Blog2\Post\PostService',
         'App\Admin\Services\Slider\SliderServiceInterface' => 'App\Admin\Services\Slider\SliderService',
         'App\Admin\Services\Slider\SliderItemServiceInterface' => 'App\Admin\Services\Slider\SliderItemService',
         'App\Admin\Services\Page\PageServiceInterface' => 'App\Admin\Services\Page\PageService',

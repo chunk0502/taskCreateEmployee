@@ -1,9 +1,9 @@
 <?php
 
+use App\Enums\Post\PostEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Enums\DefaultStatus;
 
 return new class extends Migration
 {
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('feature_image')->nullable();
             $table->integer('position')->default(0);
-            $table->tinyInteger('status')->default(DefaultStatus::Published->value);
+            $table->tinyInteger('status')->default(PostEnum::Published->value);
             $table->tinyInteger('is_featured')->default(0);
             $table->text('description')->nullable();
             $table->text('title_seo')->nullable();
@@ -40,7 +40,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->tinyInteger('status')->default(DefaultStatus::Published->value);
+            $table->tinyInteger('status')->default(PostEnum::Published->value);
             $table->text('title_seo')->nullable();
             $table->text('desc_seo')->nullable();
             $table->timestamps();
@@ -53,7 +53,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('feature_image')->nullable();
-            $table->tinyInteger('status')->default(DefaultStatus::Published->value);
+            $table->tinyInteger('status')->default(PostEnum::Published->value);
             $table->tinyInteger('is_featured')->default(0);
             $table->text('excerpt')->nullable();
             $table->longText('content')->nullable();
@@ -79,6 +79,8 @@ return new class extends Migration
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
 
+
+
     }
 
     /**
@@ -93,5 +95,7 @@ return new class extends Migration
         Schema::dropIfExists('posts');
         Schema::dropIfExists('tags');
         Schema::dropIfExists('categories');
+
+
     }
 };

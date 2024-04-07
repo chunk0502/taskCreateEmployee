@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\Enums\DefaultStatus;
+use App\Enums\Post\PostEnum;
+use App\Supports\Eloquent\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NodeTrait;
-use App\Supports\Eloquent\Sluggable;
 
 class Category extends Model
 {
@@ -15,9 +15,9 @@ class Category extends Model
     protected $table = 'categories';
 
     protected $guarded = [];
-    
+
     protected $casts = [
-        'status' => DefaultStatus::class
+        'status' => PostEnum::class
     ];
 
     public function posts(){
@@ -25,6 +25,6 @@ class Category extends Model
     }
 
     public function scopePublished($query){
-        return $query->where('status', DefaultStatus::Published);
+        return $query->where('status', PostEnum::Published);
     }
 }

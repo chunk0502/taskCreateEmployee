@@ -2,17 +2,17 @@
 
 namespace App\Admin\Http\Controllers\Slider;
 
+use App\Admin\DataTables\Slider\SliderDataTable;
 use App\Admin\Http\Controllers\Controller;
 use App\Admin\Http\Requests\Slider\SliderRequest;
 use App\Admin\Repositories\Slider\SliderRepositoryInterface;
 use App\Admin\Services\Slider\SliderServiceInterface;
-use App\Admin\DataTables\Slider\SliderDataTable;
-use App\Enums\DefaultStatus;
+use App\Enums\Post\PostEnum;
 
 class SliderController extends Controller
 {
     public function __construct(
-        SliderRepositoryInterface $repository, 
+        SliderRepositoryInterface $repository,
         SliderServiceInterface $service
     ){
 
@@ -42,7 +42,7 @@ class SliderController extends Controller
 
         return $dataTable->render($this->view['index'],
             [
-                'status' => DefaultStatus::asSelectArray(),
+                'status' => PostEnum::asSelectArray(),
                 'breadcrums' => $this->crums->add(__('slider'))
             ]
         );
@@ -50,9 +50,9 @@ class SliderController extends Controller
 
     public function create(){
 
-        return view($this->view['create'], 
+        return view($this->view['create'],
             [
-                'status' => DefaultStatus::asSelectArray(),
+                'status' => PostEnum::asSelectArray(),
                 'breadcrums' => $this->crums->add(__('slider'), route($this->route['index']))->add(__('add'))
             ]
         );
@@ -63,8 +63,8 @@ class SliderController extends Controller
         $response = $this->service->store($request);
 
         if($response){
-            return $request->input('submitter') == 'save' 
-                    ? to_route($this->route['edit'], $response->id)->with('success', __('notifySuccess')) 
+            return $request->input('submitter') == 'save'
+                    ? to_route($this->route['edit'], $response->id)->with('success', __('notifySuccess'))
                     : to_route($this->route['index'])->with('success', __('notifySuccess'));
         }
 
@@ -79,18 +79,18 @@ class SliderController extends Controller
             $this->view['edit'],
             [
                 'slider' => $response,
-                'status' => DefaultStatus::asSelectArray(),
+                'status' => PostEnum::asSelectArray(),
                 'breadcrums' => $this->crums->add(__('slider'), route($this->route['index']))->add(__('edit'))
             ]
         );
     }
- 
+
     public function update(SliderRequest $request){
 
         $response = $this->service->update($request);
 
         if($response){
-            return $request->input('submitter') == 'save' 
+            return $request->input('submitter') == 'save'
                     ? back()->with('success', __('notifySuccess'))
                     : to_route($this->route['index'])->with('success', __('notifySuccess'));
         }
@@ -101,7 +101,7 @@ class SliderController extends Controller
     public function delete($id){
 
         $this->service->delete($id);
-        
+
         return to_route($this->route['index'])->with('success', __('notifySuccess'));
     }
 }

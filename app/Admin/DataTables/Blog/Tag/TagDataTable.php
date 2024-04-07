@@ -3,9 +3,8 @@
 namespace App\Admin\DataTables\Blog\Tag;
 
 use App\Admin\DataTables\BaseDataTable;
-use App\Admin\Repositories\Category\CategoryRepositoryInterface;
 use App\Admin\Repositories\Tag\TagRepositoryInterface;
-use App\Enums\DefaultStatus;
+use App\Enums\Post\PostEnum;
 
 class TagDataTable extends BaseDataTable
 {
@@ -35,17 +34,17 @@ class TagDataTable extends BaseDataTable
     public function setColumnSearch(){
 
         $this->columnAllSearch = [0, 1, 2];
-        
+
         $this->columnSearchDate = [2];
 
         $this->columnSearchSelect = [
             [
                 'column' => 1,
-                'data' => DefaultStatus::asSelectArray()
+                'data' => PostEnum::asSelectArray()
             ],
         ];
     }
-    
+
     /**
      * Get query source of dataTable.
      *

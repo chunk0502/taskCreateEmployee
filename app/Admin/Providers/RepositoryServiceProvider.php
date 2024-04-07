@@ -13,6 +13,8 @@ class RepositoryServiceProvider extends ServiceProvider
         'App\Admin\Repositories\Setting\SettingRepositoryInterface' => 'App\Admin\Repositories\Setting\SettingRepository',
         'App\Admin\Repositories\Category\CategoryRepositoryInterface' => 'App\Admin\Repositories\Category\CategoryRepository',
         'App\Admin\Repositories\Post\PostRepositoryInterface' => 'App\Admin\Repositories\Post\PostRepository',
+        'App\Admin\Repositories\Category2\CategoryRepositoryInterface' => 'App\Admin\Repositories\Category2\CategoryRepository',
+        'App\Admin\Repositories\Post2\PostRepositoryInterface' => 'App\Admin\Repositories\Post2\PostRepository',
         'App\Admin\Repositories\Slider\SliderRepositoryInterface' => 'App\Admin\Repositories\Slider\SliderRepository',
         'App\Admin\Repositories\Slider\SliderItemRepositoryInterface' => 'App\Admin\Repositories\Slider\SliderItemRepository',
         'App\Admin\Repositories\Page\PageRepositoryInterface' => 'App\Admin\Repositories\Page\PageRepository',
