@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Blog\BlogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function(){
-    return to_route('admin.dashboard');
-});
+//Route::get('/', function(){
+//    return view('public.layouts.post');
+//});
 
 // Route::controller(App\Http\Controllers\Auth\ResetPasswordController::class)
 // ->prefix('/reset-password')
@@ -24,3 +25,9 @@ Route::get('/', function(){
 //     Route::put('/update', 'update')->name('update');
 //     Route::get('/success', 'success')->name('success');
 // });
+Route::prefix('/blog')
+    ->name('post.')
+    ->group(function () {
+        Route::get('/', [BlogController::class, 'index'])->name('index');
+        Route::get('/{slug}', [BlogController::class, 'showPost'])->name('show');
+    });
